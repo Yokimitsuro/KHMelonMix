@@ -341,9 +341,114 @@ PluginKingdomHeartsDays::PluginKingdomHeartsDays(u32 gameCode)
         { 38, 36,   "Xionbattle",       "Vector to the Heavens" }
     }};
 
-    StreamedBgmEntries = std::array<StreamedBgmEntry, 2> {{
-        { 0x5a, 0, "Dearly Beloved", 2900195 },
-        { 0x78, 39, "Dearly Beloved (Reprise)", 2459033 }
+    StreamedBgmEntries = std::array<StreamedBgmEntry, 107> {{
+        { 0x5a, 0,  "Dearly Beloved",           2900195 },
+        { 0x78, 39, "Dearly Beloved (Reprise)", 2459033 },
+        { 0, 100, "rox_warai_S01", 7444 },
+        { 0, 101, "rox_warai_S02", 7057 },
+        { 0, 102, "rox_warai_L03", 8434 },
+        { 0, 103, "rox_warai_L04", 11319 },
+        { 0, 104, "rox_warai_S05", 15295 },
+        { 0, 105, "rox_warai_L06", 13021 },
+        { 0, 106, "rox_warai_S07", 9867 },
+        { 0, 107, "rox_warai_L08", 10866 },
+        { 0, 108, "rox_warai_L10", 11674 },
+        { 0, 109, "rox_okoru_S01", 6323 },
+        { 0, 110, "rox_okoru_L02", 10844 },
+        { 0, 111, "rox_kanashii_S01", 4408 },
+        { 0, 112, "rox_kanashii_L02", 13932 },
+        { 0, 113, "rox_kanashii_S03", 11630 },
+        { 0, 114, "rox_kanashii_L04", 9955 },   // NOTE: duplicate numSamples - ambiguous
+        { 0, 115, "rox_kuyashii_S01", 4549 },
+        { 0, 116, "rox_kuyashii_L02", 13230 },
+        { 0, 117, "rox_komaru_S01", 10501 },
+        { 0, 118, "rox_komaru_L02", 10612 },
+        { 0, 119, "rox_komaru_S03", 16321 },
+        { 0, 120, "rox_komaru_L04", 13433 },
+        { 0, 121, "rox_tameiki_S03", 11924 },
+        { 0, 122, "rox_hannou_L02", 7065 },
+        { 0, 123, "rox_hannou_S03", 2944 },
+        { 0, 124, "rox_odoroki_S01", 8599 },
+        { 0, 125, "rox_odoroki_L03", 7449 },
+        { 0, 126, "rox_odoroki_S05", 6014 },
+        { 0, 127, "rox_odoroki_L08", 7967 },
+        { 0, 128, "rox_odoroki_S09", 5068 },
+        { 0, 129, "rox_kumon_L02", 9874 },
+        { 0, 130, "rox_kumon_S03", 20924 },
+        { 0, 131, "xin_warai_S01", 7705 },
+        { 0, 132, "xin_warai_L04", 13040 },
+        { 0, 133, "xin_warai_S05", 7210 },
+        { 0, 134, "xin_warai_L06", 7534 },
+        { 0, 135, "xin_warai_L08", 6258 },
+        { 0, 136, "xin_warai_S09", 5984 },
+        { 0, 137, "xin_okoru_L02", 10918 },
+        { 0, 138, "xin_kanashii_S01", 7375 },
+        { 0, 139, "xin_kanashii_L02", 9137 },
+        { 0, 140, "xin_kanashii_L04", 7272 },
+        { 0, 141, "xin_kuyashii_S01", 11338 },
+        { 0, 142, "xin_komaru_S01", 5918 },
+        { 0, 143, "xin_komaru_L02", 13572 },
+        { 0, 144, "xin_komaru_S03", 7964 },
+        { 0, 145, "xin_komaru_L04", 10759 },
+        { 0, 146, "xin_tameiki_S01", 8974 },
+        { 0, 147, "xin_tameiki_S03", 10855 },
+        { 0, 148, "xin_tameiki_S05", 6851 },
+        { 0, 149, "xin_hannou_S03", 3878 },
+        { 0, 150, "xin_odoroki_S05", 5801 },
+        { 0, 151, "xin_odoroki_S07", 3058 },
+        { 0, 152, "xin_kumon_S03", 8332 },
+        { 0, 153, "xal_warai_S01", 7174 },
+        { 0, 154, "xal_ch_okoru_L02", 17897 },
+        { 0, 155, "xal_ch_kizuki_S01", 17019 },
+        { 0, 156, "lux_odoroki_S02", 6609 },
+        { 0, 157, "lux_ch_warai_S01", 9502 },
+        { 0, 158, "lux_ch_warai_L02", 17575 },
+        { 0, 159, "axl_warai_S01", 5780 },
+        { 0, 160, "axl_warai_S02", 6423 },
+        { 0, 161, "axl_warai_L03", 9955 },   // NOTE: duplicate numSamples - ambiguous
+        { 0, 162, "axl_warai_L04", 7801 },
+        { 0, 163, "axl_warai_S05", 4454 },
+        { 0, 164, "axl_warai_L06", 14335 },
+        { 0, 165, "axl_warai_S07", 9851 },
+        { 0, 166, "axl_okoru_S01", 8496 },
+        { 0, 167, "axl_okoru_L02", 13593 },
+        { 0, 168, "axl_kanashii_S03", 13762 },
+        { 0, 169, "axl_kuyashii_S01", 7538 },
+        { 0, 170, "axl_komaru_S01", 18982 },
+        { 0, 171, "axl_komaru_L02", 15186 },
+        { 0, 172, "axl_tameiki_S01", 13108 },
+        { 0, 173, "axl_tameiki_L02", 15099 },
+        { 0, 174, "axl_tameiki_L04", 18503 },
+        { 0, 175, "axl_tameiki_S05", 10768 },
+        { 0, 176, "axl_hannou_S01", 7718 },
+        { 0, 177, "axl_hannou_L02", 6374 },
+        { 0, 178, "axl_hannou_L04", 6527 },
+        { 0, 179, "axl_odoroki_S01", 8039 },
+        { 0, 180, "axl_odoroki_S02", 4822 },
+        { 0, 181, "axl_odoroki_S09", 3874 },
+        { 0, 182, "axl_gimon_S01", 4940 },
+        { 0, 183, "axl_gimon_L02", 4446 },
+        { 0, 184, "axl_kumon_L02", 10594 },
+        { 0, 185, "xig_warai_S02", 12371 },
+        { 0, 186, "xig_warai_L03", 13965 },
+        { 0, 187, "xig_warai_L04", 14199 },
+        { 0, 188, "xig_warai_S05", 7850 },
+        { 0, 189, "xig_warai_L07", 18146 },
+        { 0, 190, "xig_warai_S09", 5570 },
+        { 0, 191, "sax_warai_S01", 4168 },
+        { 0, 192, "sax_warai_S02", 5875 },
+        { 0, 193, "sax_warai_S09", 5318 },
+        { 0, 194, "sax_odoroki_L04", 6753 },
+        { 0, 195, "sax_ch_kumon_S01", 3287 },
+        { 0, 196, "dmx_warai_S01", 3759 },
+        { 0, 197, "dmx_warai_S02", 9568 },
+        { 0, 198, "dmx_warai_L04", 18457 },
+        { 0, 199, "dmx_warai_S05", 7629 },
+        { 0, 200, "dmx_warai_L07", 6644 },
+        { 0, 201, "dmx_warai_S10", 7838 },
+        { 0, 202, "dmx_warai_L11", 13310 },
+        { 0, 203, "dmx_odoroki_L04", 12829 },
+        { 0, 204, "dmx_ch_tumaru_S01", 7069 },
     }};
 }
 
@@ -2847,8 +2952,12 @@ u32 PluginKingdomHeartsDays::getStreamBgmAddress() {
 }
 
 u16 PluginKingdomHeartsDays::getStreamBgmCustomIdFromDsId(u8 dsId, u32 numSamples) {
+    // dsId 0 acts as a wildcard: entries with dsId 0 match by numSamples alone.
+    // numSamples is unique per stream (extracted from the SDAT), so the runtime
+    // dsId is not needed to map a stream; entries with a real dsId still match
+    // strictly (both fields) for backward compatibility.
     auto found = std::find_if(StreamedBgmEntries.begin(), StreamedBgmEntries.end(), [&dsId, &numSamples](const auto& e) {
-        return e.dsId == dsId && e.numSamples == numSamples; });
+        return (e.dsId == 0 || e.dsId == dsId) && e.numSamples == numSamples; });
     if(found != StreamedBgmEntries.end()) {
         return found->customId;
     }
