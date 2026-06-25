@@ -161,7 +161,7 @@ private:
         u32 numSamples = 0;
     };
 
-    std::array<StreamedBgmEntry, 1> StreamedBgmEntries;
+    std::array<StreamedBgmEntry, 68> StreamedBgmEntries;
     u8 _MutedStreamBlocksCount = 0;
     void onStreamBgmReplacementStarted() override;
     void muteStreamedMusic() override;

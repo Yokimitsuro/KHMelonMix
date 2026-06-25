@@ -344,8 +344,75 @@ PluginKingdomHeartsReCoded::PluginKingdomHeartsReCoded(u32 gameCode)
         { 40, 40,   "Rik_BG", "" }
     }};
 
-    StreamedBgmEntries = std::array<StreamedBgmEntry, 1> {{
-        { 0X64, 41, "Dearly Beloved", 3212253 }
+    StreamedBgmEntries = std::array<StreamedBgmEntry, 68> {{
+        { 0x64, 41, "Dearly Beloved", 3212253 },
+        { 0, 100, "sr_r01_2", 10023 },
+        { 0, 101, "sr_r02_2", 9352 },
+        { 0, 102, "sr_r03_1", 15966 },
+        { 0, 103, "sr_r03_4", 23881 },
+        { 0, 104, "sr_r04_1", 9726 },
+        { 0, 105, "sr_r04_5", 8586 },
+        { 0, 106, "sr_r04_8", 10579 },
+        { 0, 107, "sr_r05_1", 13778 },
+        { 0, 108, "sr_r06_1", 14899 },
+        { 0, 109, "sr_r07_2", 9486 },
+        { 0, 110, "sr_r08_2", 5992 },
+        { 0, 111, "sr_r09_2", 6704 },
+        { 0, 112, "sr_r10_1", 16307 },
+        { 0, 113, "sr_r11_1", 8157 },
+        { 0, 114, "rk_r01_3", 4781 },
+        { 0, 115, "rk_r02_2", 24876 },
+        { 0, 116, "rk_r03_1", 6750 },
+        { 0, 117, "rk_r03_2", 11281 },
+        { 0, 118, "rk_r04_1", 5750 },
+        { 0, 119, "rk_r07_2", 8990 },
+        { 0, 120, "rk_r09_1", 5739 },
+        { 0, 121, "rk_r11_2", 7612 },
+        { 0, 122, "na_r01_2", 13176 },
+        { 0, 123, "na_r02_1", 6138 },
+        { 0, 124, "na_r02_2", 15970 },
+        { 0, 125, "na_r05_1", 7208 },
+        { 0, 126, "mm_r01_3", 5562 },
+        { 0, 127, "mm_r02_3", 5763 },
+        { 0, 128, "mm_r03_1", 16204 },
+        { 0, 129, "mm_r04_1", 5558 },
+        { 0, 130, "mm_r07_2", 6169 },
+        { 0, 131, "mm_r09_1", 3018 },
+        { 0, 132, "mm_r09_2", 3447 },
+        { 0, 133, "do_r01_1", 6671 },
+        { 0, 134, "do_r01_2", 6916 },
+        { 0, 135, "do_r02_1", 10491 },
+        { 0, 136, "do_r02_2", 17068 },
+        { 0, 137, "do_r03_1", 15561 },
+        { 0, 138, "do_r03_2", 19362 },
+        { 0, 139, "do_r04_1", 6250 },
+        { 0, 140, "do_r04_2", 7961 },
+        { 0, 141, "do_r09_2", 4061 },
+        { 0, 142, "do_r12_2", 16907 },
+        { 0, 143, "go_r01_1", 12044 },
+        { 0, 144, "go_r02_1", 14228 },
+        { 0, 145, "go_r03_1", 19610 },
+        { 0, 146, "go_r03_2", 15617 },
+        { 0, 147, "go_r04_2", 9499 },
+        { 0, 148, "go_r04_3", 17677 },
+        { 0, 149, "go_r09_1", 8246 },
+        { 0, 150, "go_r12_1", 12476 },
+        { 0, 151, "jm_r01_3", 8444 },
+        { 0, 152, "jm_r03_1", 13299 },
+        { 0, 153, "jm_r03_2", 13572 },
+        { 0, 154, "jm_r04_1", 4621 },
+        { 0, 155, "jm_r04_2", 7411 },
+        { 0, 156, "jm_r09_1", 3105 },
+        { 0, 157, "ma_r01_1", 7266 },
+        { 0, 158, "ma_r01_2", 7092 },
+        { 0, 159, "ma_r02_2", 33113 },
+        { 0, 160, "ma_r02_3", 30126 },
+        { 0, 161, "ma_r13_1", 7719 },
+        { 0, 162, "pe_r01_1", 6753 },
+        { 0, 163, "pe_r01_2", 6066 },
+        { 0, 164, "pe_r02_1", 34951 },
+        { 0, 165, "pe_r02_3", 21216 },
+        { 0, 166, "pe_r14_1", 14996 },
     }};
 }
 
@@ -3122,8 +3189,11 @@ u32 PluginKingdomHeartsReCoded::getStreamBgmAddress() {
 }
 
 u16 PluginKingdomHeartsReCoded::getStreamBgmCustomIdFromDsId(u8 dsId, u32 numSamples) {
+    // dsId 0 acts as a wildcard: entries with dsId 0 match by numSamples alone
+    // (numSamples is unique per stream, extracted from the SDAT). Entries with a
+    // real dsId still match strictly for backward compatibility.
     auto found = std::find_if(StreamedBgmEntries.begin(), StreamedBgmEntries.end(), [&](const auto& e) {
-        return e.dsId == dsId && e.numSamples == numSamples; });
+        return (e.dsId == 0 || e.dsId == dsId) && e.numSamples == numSamples; });
     if(found != StreamedBgmEntries.end()) {
         return found->customId;
     }
