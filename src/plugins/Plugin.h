@@ -205,6 +205,9 @@ public:
     bool shouldExportTextures() {
         return ExportTextures;
     }
+    bool shouldExportAudio() {
+        return ExportAudio;
+    }
     virtual bool shouldStartInFullscreen() {
         return FullscreenOnStartup;
     }
@@ -329,6 +332,7 @@ public:
     void stopBackgroundMusic(u16 fadeOutDuration);
 
     void refreshStreamedMusic();
+    void exportStreamedAudioInfo(u8 dsId, u32 numSamples, u16 mappedId);
     virtual void onStreamBgmReplacementStarted() {}
     virtual void muteStreamedMusic();
     void stopReplacementStreamBgm(u32 fadeOutDuration);
@@ -420,6 +424,7 @@ protected:
     bool FastForwardLoadingScreens = false;
     bool DaysDisableHisMemories = false;
     bool ExportTextures = false;
+    bool ExportAudio = false;
     bool FullscreenOnStartup = false;
     bool PauseInsteadOfSkipOnStart = true;
     bool SubtitlesEnabled = false;
@@ -481,6 +486,7 @@ protected:
     std::map<std::string, std::string> _BgmRedirectors;
 
     u8 _BgmStreamState = 0;
+    std::map<u64, bool> _ExportedStreamKeys;
     bool _BgmStreamMuted = false;
     u32 _CurrentStreamAddress = 0;
     bool _CurrentBgmIsStream = false;

@@ -1189,6 +1189,9 @@ void Plugin::refreshStreamedMusic() {
         case EBgmStreamState::StrmPlaying: {
             u32 numSamples = nds->ARM9Read32(strmHeaderAddress + 0x24);
             u16 streamBgmId = getStreamBgmCustomIdFromDsId(streamDsId, numSamples);
+            if (shouldExportAudio()) {
+                exportStreamedAudioInfo(streamDsId, numSamples, streamBgmId);
+            }
             if (streamBgmId != BGM_INVALID_ID) {
                 std::string replacementStrmPath = getReplacementBackgroundMusicFilePath(streamBgmId);
                 if (replacementStrmPath != "") {
@@ -1229,6 +1232,25 @@ void Plugin::refreshStreamedMusic() {
 
     if (_BgmStreamMuted) {
         muteStreamedMusic();
+    }
+}
+
+void Plugin::exportStreamedAudioInfo(u8 dsId, u32 numSamples, u16 mappedId) {
+    // Log each streamed (STRM) audio the game plays, once per unique stream, so
+    // unmapped voice/audio streams can be identified and added to the plugin's
+    // StreamedBgmEntries (dsId + numSamples is the same key used for replacement).
+    u64 key = ((u64)dsId << 32) | numSamples;
+    if (_ExportedStreamKeys.find(key) != _ExportedStreamKeys.end()) {
+        return;
+    }
+    _ExportedStreamKeys[key] = true;
+
+    std::filesystem::path filePath = gameAssetsFolderPath() / "exported_streams.txt";
+    FILE* f = fopen(filePath.string().c_str(), "a");
+    if (f != nullptr) {
+        fprintf(f, "dsId=0x%02X numSamples=%u%s\n", dsId, numSamples,
+                mappedId != BGM_INVALID_ID ? "  (already mapped)" : "  (UNMAPPED)");
+        fclose(f);
     }
 }
 
@@ -1341,6 +1363,7 @@ void Plugin::_superLoadConfigs(
     FastForwardLoadingScreens = getBoolConfig(root + ".FastForwardLoadingScreens");
     DaysDisableHisMemories = getBoolConfig(root + ".DaysDisableHisMemories");
     ExportTextures = getBoolConfig(root + ".ExportTextures");
+    ExportAudio = getBoolConfig(root + ".ExportAudio");
     FullscreenOnStartup = getBoolConfig(root + ".FullscreenOnStartup");
     PauseInsteadOfSkipOnStart = !getBoolConfig(root + ".InstantSkipCutsceneOnStart");
     UIScale = getIntConfig(root + ".HUDScale");
